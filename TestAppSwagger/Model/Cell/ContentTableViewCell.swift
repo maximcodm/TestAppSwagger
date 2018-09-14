@@ -10,6 +10,10 @@ import UIKit
 
 class ContentTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var mainLabel: UILabel!
     
+    func update(text: String) {
+        mainLabel.text = text
+    }
 
 }

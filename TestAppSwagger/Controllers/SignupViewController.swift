@@ -30,5 +30,23 @@ class SignupViewController: UIViewController {
     private func signup() {
         
     }
+    
+    private func validateData() throws -> Credentials? {
+        if let name = nameEditText.text, let email = emailTextField.text, let password = passwordEditText.text {
+            if name.isEmpty && email.isEmpty && password.isEmpty {
+                throw ErrorType.HasEmptyFields
+            }
+            if name.count < 4 {
+                throw ErrorType.ShortName
+            } else if !email.contains("@") {
+                throw ErrorType.InvalidEmail
+            } else if password.count < 8 {
+                throw ErrorType.ShortPassword
+            } else {
+                return Credentials(name: nil, email: email, password: password)
+            }
+        }
+        return nil
+    }
 
 }

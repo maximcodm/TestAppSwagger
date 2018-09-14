@@ -28,26 +28,26 @@ class LoginViewController: UIViewController {
     
     private func login() {
         
-//        var creds: Credentials?
-//        
-//        do {
-//            creds = try validateData()
-//        } catch ErrorType.HasEmptyFields {
-//            Alert.showAlert(text: "Text", vc: self)
-//        } catch ErrorType.InvalidEmail {
-//            Alert.showAlert(text: "Text", vc: self)
-//        } catch ErrorType.ShortPassword {
-//            Alert.showAlert(text: "Text", vc: self)
-//        } catch {
-//            Alert.showAlert(text: "Text", vc: self)
-//        }
-//        
-//        // make request
-//        if let creds = creds {
-//            Client.instance.send(cred: creds)
-//        } else {
-//            return
-//        }
+        var creds: Credentials?
+        
+        do {
+            creds = try validateData()
+        } catch ErrorType.HasEmptyFields {
+            Alert.showAlert(text: Constants.EMPTY_FIELDS_ERROR, vc: self)
+        } catch ErrorType.InvalidEmail {
+            Alert.showAlert(text: Constants.INVALID_EMAIL_ERROR, vc: self)
+        } catch ErrorType.ShortPassword {
+            Alert.showAlert(text: Constants.SHORT_PASSWORD_ERROR, vc: self)
+        } catch {
+            Alert.showAlert(text: Constants.UNKNOWN_ERROR, vc: self)
+        }
+        
+        // make request
+        if let creds = creds {
+            Client.instance.send(cred: creds)
+        } else {
+            return
+        }
         
         // save token
 //        Storage(token: "token")
@@ -61,6 +61,18 @@ class LoginViewController: UIViewController {
     }
     
     private func validateData() throws -> Credentials? {
+        if let email = emailTextField.text, let password = passwordTextField.text {
+            if email.isEmpty && password.isEmpty {
+                throw ErrorType.HasEmptyFields
+            }
+            if !email.contains("@") {
+                throw ErrorType.InvalidEmail
+            } else if password.count < 8 {
+                throw ErrorType.ShortPassword
+            } else {
+                return Credentials(name: nil, email: email, password: password)
+            }
+        }
         return nil
     }
 
