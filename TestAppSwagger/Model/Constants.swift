@@ -19,3 +19,15 @@ enum Constants {
     
     static let CONTENT_CELL_ID = "content_cell"
 }
+
+enum ErrorType: Error {
+    case HasEmptyFields
+    case InvalidEmail
+    case ShortPassword
+}
+
+struct Credentials {
+    var name: String?
+    var email: String
+    var password: String
+}
