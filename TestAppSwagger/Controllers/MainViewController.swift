@@ -36,10 +36,10 @@ class MainViewController: UIViewController {
     private func parseData(data: Data) {
         let parser = JSONParser(data: data)
         guard let stringData = parser.getString() else { return }
-        countOccurence(string: stringData)
+        countOccurenceIn(string: stringData)
     }
     
-    private func countOccurence(string: String) {
+    private func countOccurenceIn(string: String) {
         
     }
 }
