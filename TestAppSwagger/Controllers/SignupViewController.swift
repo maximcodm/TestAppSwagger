@@ -28,7 +28,39 @@ class SignupViewController: UIViewController {
     }
     
     private func signup() {
+        var creds: Credentials?
+        do {
+            creds = try validateData()
+        } catch ErrorType.HasEmptyFields {
+            Alert.showAlert(text: Constants.EMPTY_FIELDS_ERROR, vc: self)
+        } catch ErrorType.InvalidEmail {
+            Alert.showAlert(text: Constants.INVALID_EMAIL_ERROR, vc: self)
+        } catch ErrorType.ShortPassword {
+            Alert.showAlert(text: Constants.SHORT_PASSWORD_ERROR, vc: self)
+        } catch {
+            Alert.showAlert(text: Constants.UNKNOWN_ERROR, vc: self)
+        }
         
+        if let creds = creds {
+            Client.instance.sendAuth(creds: creds, type: .Signup, handler: { (response) in
+                if let error = response.error {
+                    print(error.localizedDescription)
+                }
+                self.parseData(data: response.data)
+                self.toMainScreen()
+            })
+        }
+    }
+    
+    private func parseData(data: Data) {
+        let parser = JSONParser(data: data)
+        guard let user = parser.getUser() else { return }
+        Storage.instance.setUser(user: user)
+    }
+    
+    private func toMainScreen() {
+        guard let mainPage = self.storyboard?.instantiateViewController(withIdentifier: Constants.MAIN_SB_ID) as? MainViewController else { return }
+        present(mainPage, animated: true, completion: nil)
     }
     
     private func validateData() throws -> Credentials? {

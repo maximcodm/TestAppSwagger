@@ -30,10 +30,22 @@ enum ErrorType: Error {
     case InvalidEmail
     case ShortPassword
     case ShortName
+    case EmptyUserObj
+}
+
+enum AuthType {
+    case Login
+    case Signup
 }
 
 struct Credentials {
     var name: String?
     var email: String
     var password: String
+}
+
+struct User {
+    var name: String
+    var email: String
+    var token: String
 }

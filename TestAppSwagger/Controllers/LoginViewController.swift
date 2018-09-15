@@ -23,13 +23,10 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     private func login() {
-        
         var creds: Credentials?
-        
         do {
             creds = try validateData()
         } catch ErrorType.HasEmptyFields {
@@ -42,18 +39,26 @@ class LoginViewController: UIViewController {
             Alert.showAlert(text: Constants.UNKNOWN_ERROR, vc: self)
         }
         
-        // make request
         if let creds = creds {
-            Client.instance.send(cred: creds)
-        } else {
-            return
+            Client.instance.sendAuth(creds: creds, type: .Login, handler: { (response) in
+                if let error = response.error {
+                    print(error.localizedDescription)
+                }
+                self.parseData(data: response.data)
+                self.toMainScreen()
+            })
         }
-        
-        // save token
-//        Storage(token: "token")
-        
-        let mainPage = self.storyboard?.instantiateViewController(withIdentifier: Constants.MAIN_SB_ID) as? MainViewController
-        present(mainPage!, animated: true, completion: nil)
+    }
+    
+    private func parseData(data: Data) {
+        let parser = JSONParser(data: data)
+        guard let user = parser.getUser() else { return }
+        Storage.instance.setUser(user: user)
+    }
+    
+    private func toMainScreen() {
+        guard let mainPage = self.storyboard?.instantiateViewController(withIdentifier: Constants.MAIN_SB_ID) as? MainViewController else { return }
+        present(mainPage, animated: true, completion: nil)
     }
     
     private func signup(sender: UIButton) {
