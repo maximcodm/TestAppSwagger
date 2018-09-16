@@ -24,7 +24,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Nf0-87-LKS" userLabel="EmailStack">
                                         <rect key="frame" x="0.0" y="0.0" width="275" height="41"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="edu.maximcodm@gmail.com" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UWC-5H-14u">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UWC-5H-14u">
                                                 <rect key="frame" x="0.0" y="0.0" width="275" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="PfX-gj-qSH"/>
@@ -54,7 +54,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="U30-ts-0tk" userLabel="PasswordStack">
                                         <rect key="frame" x="0.0" y="61" width="275" height="41"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="138913ok" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wj3-EW-DuJ">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wj3-EW-DuJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="275" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="TZw-s4-VEt"/>
@@ -355,10 +355,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vkp-pD-O6K">
-                                                    <rect key="frame" x="4" y="4" width="367" height="113"/>
+                                                    <rect key="frame" x="8" y="4" width="359" height="113"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;&quot;A&quot; - 10 times&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hdj-5J-s7c">
-                                                            <rect key="frame" x="112" y="45" width="144" height="24"/>
+                                                            <rect key="frame" x="108" y="45" width="144" height="24"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -370,13 +370,18 @@
                                                         <constraint firstAttribute="bottom" secondItem="Hdj-5J-s7c" secondAttribute="bottom" constant="44" id="bwn-MI-MWB"/>
                                                         <constraint firstItem="Hdj-5J-s7c" firstAttribute="centerX" secondItem="vkp-pD-O6K" secondAttribute="centerX" id="wOg-eb-NQp"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="vkp-pD-O6K" secondAttribute="trailing" constant="4" id="0wE-tn-K3m"/>
+                                                <constraint firstAttribute="trailing" secondItem="vkp-pD-O6K" secondAttribute="trailing" constant="8" id="0wE-tn-K3m"/>
                                                 <constraint firstItem="vkp-pD-O6K" firstAttribute="top" secondItem="DO3-5x-tM7" secondAttribute="top" constant="4" id="3Tw-Ca-8p5"/>
                                                 <constraint firstAttribute="bottom" secondItem="vkp-pD-O6K" secondAttribute="bottom" constant="4" id="j9Y-t5-DXe"/>
-                                                <constraint firstItem="vkp-pD-O6K" firstAttribute="leading" secondItem="DO3-5x-tM7" secondAttribute="leading" constant="4" id="uEZ-cu-Pzc"/>
+                                                <constraint firstItem="vkp-pD-O6K" firstAttribute="leading" secondItem="DO3-5x-tM7" secondAttribute="leading" constant="8" id="uEZ-cu-Pzc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

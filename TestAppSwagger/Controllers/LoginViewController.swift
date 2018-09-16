@@ -35,12 +35,16 @@ class LoginViewController: UIViewController {
             creds = try validateData()
         } catch ErrorType.HasEmptyFields {
             Alert.showAlert(text: Constants.EMPTY_FIELDS_ERROR, vc: self)
+            loginActions()
         } catch ErrorType.InvalidEmail {
             Alert.showAlert(text: Constants.INVALID_EMAIL_ERROR, vc: self)
+            loginActions()
         } catch ErrorType.ShortPassword {
             Alert.showAlert(text: Constants.SHORT_PASSWORD_ERROR, vc: self)
+            loginActions()
         } catch {
             Alert.showAlert(text: Constants.UNKNOWN_ERROR, vc: self)
+            loginActions()
         }
         
         if let creds = creds {
@@ -92,6 +96,7 @@ class LoginViewController: UIViewController {
         buttonsStack.isHidden = !buttonsStack.isHidden
         loginIndicatior.isHidden = !loginIndicatior.isHidden
     }
-
 }
+
+
 

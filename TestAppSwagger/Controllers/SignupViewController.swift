@@ -36,12 +36,16 @@ class SignupViewController: UIViewController {
             creds = try validateData()
         } catch ErrorType.HasEmptyFields {
             Alert.showAlert(text: Constants.EMPTY_FIELDS_ERROR, vc: self)
+            signupActions()
         } catch ErrorType.InvalidEmail {
             Alert.showAlert(text: Constants.INVALID_EMAIL_ERROR, vc: self)
+            signupActions()
         } catch ErrorType.ShortPassword {
             Alert.showAlert(text: Constants.SHORT_PASSWORD_ERROR, vc: self)
+            signupActions()
         } catch {
             Alert.showAlert(text: Constants.UNKNOWN_ERROR, vc: self)
+            signupActions()
         }
         
         if let creds = creds {
