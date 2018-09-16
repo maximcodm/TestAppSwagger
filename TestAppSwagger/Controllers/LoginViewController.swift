@@ -10,11 +10,15 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var buttonsStack: UIStackView!
+    @IBOutlet weak var loginIndicatior: UIActivityIndicatorView!
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBAction func loginAction(_ sender: UIButton) {
         login()
+        loginActions()
     }
     
     @IBAction func signupAction(_ sender: UIButton) {
@@ -45,7 +49,9 @@ class LoginViewController: UIViewController {
                     print(error.localizedDescription)
                 }
                 self.parseData(data: response.data)
-                self.toMainScreen()
+                DispatchQueue.main.async {
+                    self.toMainScreen()
+                }
             })
         }
     }
@@ -59,6 +65,7 @@ class LoginViewController: UIViewController {
     private func toMainScreen() {
         guard let mainPage = self.storyboard?.instantiateViewController(withIdentifier: Constants.MAIN_SB_ID) as? MainViewController else { return }
         present(mainPage, animated: true, completion: nil)
+        loginActions()
     }
     
     private func signup(sender: UIButton) {
@@ -79,6 +86,11 @@ class LoginViewController: UIViewController {
             }
         }
         return nil
+    }
+    
+    private func loginActions() {
+        buttonsStack.isHidden = !buttonsStack.isHidden
+        loginIndicatior.isHidden = !loginIndicatior.isHidden
     }
 
 }

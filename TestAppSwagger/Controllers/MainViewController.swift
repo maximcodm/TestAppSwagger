@@ -12,6 +12,8 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var contentTableView: UITableView!
     
+    private var index = 0
+    private let chars = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", ".", ",", "-", "'", "!", "?", ":", ";", "(", ")", "\"", " "]
     private var contentArray = [String]()
 
     override func viewDidLoad() {
@@ -29,18 +31,27 @@ class MainViewController: UIViewController {
                 print(error.localizedDescription)
             }
             self.parseData(data: response.data)
-            self.contentTableView.reloadData()
         }
     }
     
     private func parseData(data: Data) {
         let parser = JSONParser(data: data)
         guard let stringData = parser.getString() else { return }
-        countOccurenceIn(string: stringData)
+        countOccurenceIn(string: stringData.lowercased())
+        DispatchQueue.main.async {
+            self.contentTableView.reloadData()
+        }
     }
     
     private func countOccurenceIn(string: String) {
-        
+        if index < chars.count {
+            let array = string.split(separator: Character(chars[index]))
+            contentArray.append("<\" \(chars[index].uppercased()) \" - \(array.count - 1) times>")
+            index += 1
+            countOccurenceIn(string: string)
+        } else {
+            return
+        }
     }
 }
 

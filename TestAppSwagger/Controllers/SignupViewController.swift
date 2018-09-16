@@ -10,6 +10,9 @@ import UIKit
 
 class SignupViewController: UIViewController {
     
+    @IBOutlet weak var signupIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var buttonsStack: UIButton!
+    
     @IBOutlet weak var nameEditText: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordEditText: UITextField!
@@ -20,11 +23,11 @@ class SignupViewController: UIViewController {
     
     @IBAction func signUpAction(_ sender: UIButton) {
         signup()
+        signupActions()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     private func signup() {
@@ -47,7 +50,9 @@ class SignupViewController: UIViewController {
                     print(error.localizedDescription)
                 }
                 self.parseData(data: response.data)
-                self.toMainScreen()
+                DispatchQueue.main.async {
+                    self.toMainScreen()
+                }
             })
         }
     }
@@ -61,6 +66,7 @@ class SignupViewController: UIViewController {
     private func toMainScreen() {
         guard let mainPage = self.storyboard?.instantiateViewController(withIdentifier: Constants.MAIN_SB_ID) as? MainViewController else { return }
         present(mainPage, animated: true, completion: nil)
+        signupActions()
     }
     
     private func validateData() throws -> Credentials? {
@@ -79,6 +85,11 @@ class SignupViewController: UIViewController {
             }
         }
         return nil
+    }
+    
+    private func signupActions() {
+        buttonsStack.isHidden = !buttonsStack.isHidden
+        signupIndicator.isHidden = !signupIndicator.isHidden
     }
 
 }
