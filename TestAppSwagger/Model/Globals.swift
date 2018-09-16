@@ -23,6 +23,7 @@ enum Constants {
     static let INVALID_EMAIL_ERROR = "Email is invalid"
     static let SHORT_PASSWORD_ERROR = "Password should be at least 8 symbols"
     static let UNKNOWN_ERROR = "Something went wrong. Please try again later"
+    static let CREDS_ARE_TAKEN = "Your name or email is already in use"
 }
 
 enum ErrorType: Error {

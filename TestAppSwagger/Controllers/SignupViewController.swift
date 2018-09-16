@@ -53,18 +53,28 @@ class SignupViewController: UIViewController {
                 if let error = response.error {
                     print(error.localizedDescription)
                 }
-                self.parseData(data: response.data)
-                DispatchQueue.main.async {
-                    self.toMainScreen()
+                let success = self.parseData(data: response.data)
+                if success {
+                    DispatchQueue.main.async {
+                        self.toMainScreen()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        Alert.showAlert(text: Constants.CREDS_ARE_TAKEN, vc: self)
+                        self.signupActions()
+                    }
                 }
             })
         }
     }
     
-    private func parseData(data: Data) {
+    private func parseData(data: Data) -> Bool {
         let parser = JSONParser(data: data)
-        guard let user = parser.getUser() else { return }
+        guard let user = parser.getUser() else {
+            return false
+        }
         Storage.instance.setUser(user: user)
+        return true
     }
     
     private func toMainScreen() {
@@ -85,7 +95,7 @@ class SignupViewController: UIViewController {
             } else if password.count < 8 {
                 throw ErrorType.ShortPassword
             } else {
-                return Credentials(name: nil, email: email, password: password)
+                return Credentials(name: name, email: email, password: password)
             }
         }
         return nil
